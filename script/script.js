@@ -45,3 +45,23 @@ function toggleStyle(id) {
     senderRejected();
   }
 }
+
+function forSelectedSection(informationCollection) {
+  return `
+    <div class="card-left space-y-4">
+      <div>
+        <h3 class="corpName text-[rgba(0,44,92,1)] font-bold">${informationCollection.corpName}</h3>
+        <p class="corpType text-[rgba(100,116,139,1)]">${informationCollection.corpType}</p>
+      </div>
+      <small class="jobType text-[rgba(100,116,139,1)]">${informationCollection.jobType}</small><br><br>
+      <button class="text-[rgba(0,44,92,1)] bg-[rgba(238,244,255,1)] p-2 rounded-md isApply">${informationCollection.isApply}</button>
+      <p class="text-[rgba(50,59,73,1)] notes">${informationCollection.notes}</p>
+      <div class="flex gap-4">
+        <button class="text-[rgba(16,185,129,1)] btn outline outline-2 outline-[rgba(16,185,129,1)] interview-btn">Interview</button>
+        <button class="btn text-[rgba(239,68,68,1)] outline outline-2 outline-[rgba(239,68,68,1)] rejected-btn">Rejected</button>
+      </div>
+    </div>
+    <div class="card-right">
+      <span class="p-3 border border-gray-300 rounded-full bg-gray-200 cursor-pointer delete-btn"><i class="fa-solid fa-trash-can"></i></span>
+    </div>`;
+}
