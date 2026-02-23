@@ -160,3 +160,47 @@ mainContainer.addEventListener("click", function (event) {
 
     else if (filteredSection.contains(parentCard)) {
       const corpName = parentCard.querySelector(".corpName").innerText;
+
+      const allCardsList = allCards.querySelectorAll(".flex.justify-between");
+      allCardsList.forEach((card) => {
+        if (card.querySelector(".corpName").innerText === corpName) {
+          card.remove();
+        }
+      });
+
+  
+      interviewList = interviewList.filter(
+        (item) => item.corpName !== corpName,
+      );
+      rejectedList = rejectedList.filter((item) => item.corpName !== corpName);
+
+      parentCard.remove();
+      calculateCount();
+    }
+  }
+});
+
+
+function senderInterview() {
+  filteredSection.innerHTML = "";
+
+  if (interviewList.length === 0) {
+    NoJobMessageDiv();
+    return;
+  }
+
+  for (let interview of interviewList) {
+    let div = document.createElement("div");
+    div.className = "flex justify-between bg-base-200 p-8 rounded-xl";
+    div.innerHTML = forSelectedSection(interview);
+    filteredSection.appendChild(div);
+  }
+}
+
+function senderRejected() {
+  filteredSection.innerHTML = "";
+
+  if (rejectedList.length === 0) {
+    NoJobMessageDiv();
+    return;
+  }
