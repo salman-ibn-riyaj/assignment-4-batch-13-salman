@@ -113,3 +113,50 @@ mainContainer.addEventListener("click", function (event) {
     const corpType = parentCard.querySelector(".corpType").innerText;
     const jobType = parentCard.querySelector(".jobType").innerText;
     const notes = parentCard.querySelector(".notes").innerText;
+
+
+    // Status update in UI
+    parentCard.querySelector(".isApply").innerText = "Rejected";
+
+    const cardInfo = {
+      corpName,
+      corpType,
+      jobType,
+      isApply: "Rejected",
+      notes,
+    };
+
+
+    interviewList = interviewList.filter((item) => item.corpName !== corpName);
+
+
+    if (!rejectedList.find((item) => item.corpName === corpName)) {
+      rejectedList.push(cardInfo);
+    }
+
+    calculateCount();
+
+    if (bortomanStatus === "rejected-filter-btn") senderRejected();
+    if (bortomanStatus === "interview-filter-btn") senderInterview();
+  }
+
+
+  else if (event.target.closest(".delete-btn")) {
+
+    const parentCard = event.target.closest(".flex.justify-between");
+
+    if (allCards.contains(parentCard)) {
+      const corpName = parentCard.querySelector(".corpName").innerText;
+
+
+      interviewList = interviewList.filter(
+        (item) => item.corpName !== corpName,
+      );
+      rejectedList = rejectedList.filter((item) => item.corpName !== corpName);
+
+      parentCard.remove();
+      calculateCount();
+    }
+
+    else if (filteredSection.contains(parentCard)) {
+      const corpName = parentCard.querySelector(".corpName").innerText;
