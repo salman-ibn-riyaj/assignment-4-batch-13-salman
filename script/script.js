@@ -66,18 +66,13 @@ function forSelectedSection(informationCollection) {
     </div>`;
 }
 
-
 mainContainer.addEventListener("click", function (event) {
- 
-
-
   if (event.target.classList.contains("interview-btn")) {
     const parentCard = event.target.parentNode.parentNode;
     const corpName = parentCard.querySelector(".corpName").innerText;
     const corpType = parentCard.querySelector(".corpType").innerText;
     const jobType = parentCard.querySelector(".jobType").innerText;
     const notes = parentCard.querySelector(".notes").innerText;
-
 
     parentCard.querySelector(".isApply").innerText = "Interview";
 
@@ -89,31 +84,22 @@ mainContainer.addEventListener("click", function (event) {
       notes,
     };
 
- 
-
-
     rejectedList = rejectedList.filter((item) => item.corpName !== corpName);
 
-   
     if (!interviewList.find((item) => item.corpName === corpName)) {
       interviewList.push(cardInfo);
     }
 
     calculateCount();
 
-    
     if (bortomanStatus === "interview-filter-btn") senderInterview();
     if (bortomanStatus === "rejected-filter-btn") senderRejected();
-  }
-
-
-  else if (event.target.classList.contains("rejected-btn")) {
+  } else if (event.target.classList.contains("rejected-btn")) {
     const parentCard = event.target.parentNode.parentNode;
     const corpName = parentCard.querySelector(".corpName").innerText;
     const corpType = parentCard.querySelector(".corpType").innerText;
     const jobType = parentCard.querySelector(".jobType").innerText;
     const notes = parentCard.querySelector(".notes").innerText;
-
 
     // Status update in UI
     parentCard.querySelector(".isApply").innerText = "Rejected";
@@ -126,9 +112,7 @@ mainContainer.addEventListener("click", function (event) {
       notes,
     };
 
-
     interviewList = interviewList.filter((item) => item.corpName !== corpName);
-
 
     if (!rejectedList.find((item) => item.corpName === corpName)) {
       rejectedList.push(cardInfo);
@@ -138,16 +122,11 @@ mainContainer.addEventListener("click", function (event) {
 
     if (bortomanStatus === "rejected-filter-btn") senderRejected();
     if (bortomanStatus === "interview-filter-btn") senderInterview();
-  }
-
-
-  else if (event.target.closest(".delete-btn")) {
-
+  } else if (event.target.closest(".delete-btn")) {
     const parentCard = event.target.closest(".flex.justify-between");
 
     if (allCards.contains(parentCard)) {
       const corpName = parentCard.querySelector(".corpName").innerText;
-
 
       interviewList = interviewList.filter(
         (item) => item.corpName !== corpName,
@@ -156,9 +135,7 @@ mainContainer.addEventListener("click", function (event) {
 
       parentCard.remove();
       calculateCount();
-    }
-
-    else if (filteredSection.contains(parentCard)) {
+    } else if (filteredSection.contains(parentCard)) {
       const corpName = parentCard.querySelector(".corpName").innerText;
 
       const allCardsList = allCards.querySelectorAll(".flex.justify-between");
@@ -168,7 +145,6 @@ mainContainer.addEventListener("click", function (event) {
         }
       });
 
-  
       interviewList = interviewList.filter(
         (item) => item.corpName !== corpName,
       );
@@ -179,7 +155,6 @@ mainContainer.addEventListener("click", function (event) {
     }
   }
 });
-
 
 function senderInterview() {
   filteredSection.innerHTML = "";
@@ -204,3 +179,20 @@ function senderRejected() {
     NoJobMessageDiv();
     return;
   }
+
+  for (let rejected of rejectedList) {
+    let div = document.createElement("div");
+    div.className = "flex justify-between bg-base-200 p-8 rounded-xl";
+    div.innerHTML = forSelectedSection(rejected);
+    filteredSection.appendChild(div);
+  }
+}
+
+function NoJobMessageDiv() {
+  filteredSection.innerHTML = `
+    <div class="btn btn-soft flex flex-col gap-3 py-30">
+      <img src="images/jobs.png" alt="">
+      <h2 class="text-[rgba(0,44,92,1)]">No jobs available</h2>
+      <p class="text-[rgba(100,116,139,1)]">Check back soon for new job opportunities</p>
+    </div>`;
+}
