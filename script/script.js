@@ -152,6 +152,9 @@ mainContainer.addEventListener("click", function (event) {
 
       parentCard.remove();
       calculateCount();
+
+      if (bortomanStatus === "rejected-filter-btn") senderRejected();
+      if (bortomanStatus === "interview-filter-btn") senderInterview();
     }
   }
 });
